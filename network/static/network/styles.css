@@ -1,0 +1,221 @@
+#profile-image{
+position: relative;
+width: 111px;
+height: 111px;
+left: 102px;
+filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+border-radius: 8px;
+}
+
+#username{
+position: relative;
+width: 101px;
+height: 21px;
+left: 107px;
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 21px;
+/* identical to box height */
+
+text-align: center;
+
+color: #0f0d0d;
+}
+
+
+
+#posts{
+position: absolute;
+width: 34px;
+height: 15px;
+left: 41px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: 15px;
+text-align: center;
+
+color: #92949F;
+}
+
+#followers{
+
+position: absolute;
+width: 56px;
+height: 15px;
+left: 118px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: 15px;
+text-align: center;
+
+color: #92949F;
+
+}
+
+#following{
+
+position: absolute;
+width: 56px;
+height: 15px;
+left: 219px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 13px;
+line-height: 15px;
+text-align: center;
+
+color: #92949F;
+}
+
+#follow-unfollow-button{
+position: absolute;
+width: 56px;
+height: 12px;
+left: 299px;
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 10px;
+line-height: 10px;
+text-align: center;
+
+color: #92949F;
+
+
+}
+
+
+
+
+
+#followers-count{
+
+position: absolute;
+width: 26px;
+height: 18px;
+top: 230px;
+left: 133px;
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 18px;
+/* identical to box height */
+
+text-align: center;
+
+color: #92949F;
+
+}
+
+#following-count{
+
+
+
+position: absolute;
+width: 26px;
+height: 18px;
+left: 234px;
+top: 230px;
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 18px;
+/* identical to box height */
+
+text-align: center;
+
+color: #92949F;
+
+
+
+}
+
+
+#posts-count{
+position: relative;
+width: 18px;
+height: 18px;
+left: 48px;
+top: 26px;
+
+
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 18px;
+/* identical to box height */
+
+text-align: center;
+
+color:  #92949F;
+}
+
+#post-image{
+position: relative;
+width: 225px;
+height: 225px;
+left: 62px;
+filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
+border-radius: 8px;
+}
+
+#post-owner{
+
+    position: relative;
+    left: 80px;
+    font-size: 40px;
+   
+
+
+}
+
+#post-content{
+
+
+    position: relative;
+    left: 80px;
+    font-size: 16px;
+
+
+}
+
+#post-image-profile{
+    position: relative;
+    width: 225px;
+    height: 225px;
+    left: 50px;
+   
+    }
+
+#post-content-profile{
+
+
+    position: relative;
+    left: 80px;
+    font-size: 16px;
+    
+    
+    }
+
+
+

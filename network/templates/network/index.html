@@ -1,0 +1,29 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+
+{% for post in posts %}
+
+   
+   <a href="{% url 'profile' post.post_owner %}"><p id="post-owner">{{post.post_owner}}</p></a>
+   <img id="post-image" src="{{post.imageURL}}" alt="">
+   <p id="post-content">{{post.post_content}}</p>
+
+
+{% endfor %}
+
+
+
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'network/twitter.js' %}"></script>
+{% endblock %}
+
+
+

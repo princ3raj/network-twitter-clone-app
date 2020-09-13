@@ -1,0 +1,72 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+
+{% block body %}
+
+
+
+
+
+<img id="profile-image" src="{% static 'images/profile.png' %}" alt="">
+<p id="username">{{username}}</p>
+<p id="posts">Posts</p>
+<p id="followers">Followers</p>
+<p id="following">Following</p>
+{% if username == loggedinuser %}
+
+
+
+
+{% else %}
+
+
+<button id="follow-unfollow-button">follow</button>
+
+
+
+{% endif %}
+
+
+
+<p id="followers-count">{{j}}</p>
+<p id="following-count">{{i}}</p>
+<p id="posts-count">20</p>
+<br>
+<br>
+
+
+  {% for post in posts %}
+
+
+   <img id="post-image-profile" src="{{post.imageURL}}" alt="">
+   <p id="post-content-profile">{{post.post_content}}</p>
+  
+  
+  
+  
+  {% endfor %}
+
+
+
+
+
+
+  
+
+
+
+
+
+ 
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'network/twitter.js' %}"></script>
+{% endblock %}
+
+
+
+
