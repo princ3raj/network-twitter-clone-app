@@ -14,7 +14,7 @@
 <p id="posts">Posts</p>
 <p id="followers">Followers</p>
 <p id="following">Following</p>
-{% if username == loggedinuser %}
+ {% if username == loggedinuser %}
 
 
 
@@ -26,7 +26,7 @@
 
 
 
-{% endif %}
+{% endif %} 
 
 
 
@@ -37,7 +37,7 @@
 <br>
 
 
-  {% for post in posts %}
+   {% for post in posts %}
 
 
    <img id="post-image-profile" src="{{post.imageURL}}" alt="">
@@ -46,7 +46,7 @@
   
   
   
-  {% endfor %}
+  {% endfor %} 
 
 
 

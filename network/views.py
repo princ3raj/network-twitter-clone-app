@@ -75,10 +75,17 @@ def register(request):
 
 
 def profile(request,username):
+
+
+
+
+
+
+
     followers=UserProfile.objects.all()
     posts=Post.objects.all()
     posts=posts.order_by("-timestamp").all()
-    loggedinuser=str(request.user)
+    # loggedinuser=str(request.user)
     PostBox=[]
     for post in posts:
         if str(post.post_owner)==username:
@@ -97,8 +104,9 @@ def profile(request,username):
 
     print(PostBox)
 
-    context={'follower':followers,'i':i,'j':j,'username':username,'posts':PostBox,'loggedinuser':loggedinuser}
-    return render(request,"network/profile.html",context)
+    # context={'follower':followers,'i':i,'j':j,'username':username,'posts':PostBox,'loggedinuser':loggedinuser}
+    return JsonResponse([post.serialize() for post in PostBox], safe=False)
+    
 
 def fetchPost(request):
     # Filter emails returned based on mailbox
