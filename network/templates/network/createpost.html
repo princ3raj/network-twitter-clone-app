@@ -1,0 +1,41 @@
+{% extends "network/layout.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block body %}
+
+
+
+<form action="" method="post" class="form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    {% endbuttons %}
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'network/twitter.js' %}"></script>
+{% endblock %}
+
+
+

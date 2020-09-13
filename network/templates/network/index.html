@@ -4,15 +4,26 @@
 {% block body %}
 
 
-{% for post in posts %}
 
-   
-   <a href="{% url 'profile' post.post_owner %}"><p id="post-owner">{{post.post_owner}}</p></a>
-   <img id="post-image" src="{{post.imageURL}}" alt="">
-   <p id="post-content">{{post.post_content}}</p>
+<div class="container">
+</div>
 
 
-{% endfor %}
+
+
+
+
+
+<div class="edit-post">
+
+    <form class="editedpostform">
+    <label for="editpost">Edit Post</label>
+    <input type="text" id="edit-post-content" name="post"><br><br>
+    
+    <input id="submit" type="submit" value="Submit">
+    </form>
+
+</div>
 
 
 

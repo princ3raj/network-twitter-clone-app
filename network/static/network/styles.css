@@ -199,6 +199,14 @@ border-radius: 8px;
 
 }
 
+#post-time{
+
+
+    position: relative;
+    left:80px;
+    font-size: 16px;
+}
+
 #post-image-profile{
     position: relative;
     width: 225px;
@@ -216,6 +224,10 @@ border-radius: 8px;
     
     
     }
+
+.edit-post{
+    margin: 100px;
+}
 
 
 

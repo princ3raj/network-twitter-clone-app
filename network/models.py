@@ -53,6 +53,14 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return u'%s follows %s' % (self.follower, self.following)
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "follower": self.follower.username,
+            "following":self.following.username
+           
+        }
+
   
 
 
