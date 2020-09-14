@@ -2,7 +2,7 @@
 position: relative;
 width: 111px;
 height: 111px;
-left: 102px;
+left: 675px;
 filter: drop-shadow(0px 4px 25px rgba(0, 0, 0, 0.25));
 border-radius: 8px;
 }
@@ -11,7 +11,7 @@ border-radius: 8px;
 position: relative;
 width: 101px;
 height: 21px;
-left: 107px;
+left: 680px;
 
 
 font-family: Roboto;
@@ -32,7 +32,7 @@ color: #0f0d0d;
 position: absolute;
 width: 34px;
 height: 15px;
-left: 41px;
+left: 614px;
 
 font-family: Roboto;
 font-style: normal;
@@ -49,7 +49,7 @@ color: #92949F;
 position: absolute;
 width: 56px;
 height: 15px;
-left: 118px;
+left: 691px;
 
 font-family: Roboto;
 font-style: normal;
@@ -67,7 +67,7 @@ color: #92949F;
 position: absolute;
 width: 56px;
 height: 15px;
-left: 219px;
+left: 792px;
 
 font-family: Roboto;
 font-style: normal;
@@ -81,17 +81,17 @@ color: #92949F;
 
 #follow-unfollow-button{
 position: absolute;
-width: 56px;
-height: 12px;
-left: 299px;
+width: 86px;
+height: 32px;
+left: 872px;
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
-font-size: 10px;
-line-height: 10px;
+font-size: 16px;
+line-height: 1px;
 text-align: center;
 
-color: #92949F;
+color: #ffffff;
 
 
 }
@@ -106,7 +106,7 @@ position: absolute;
 width: 26px;
 height: 18px;
 top: 230px;
-left: 133px;
+left: 706px;
 
 
 font-family: Roboto;
@@ -129,7 +129,7 @@ color: #92949F;
 position: absolute;
 width: 26px;
 height: 18px;
-left: 234px;
+left: 807px;
 top: 230px;
 
 
@@ -153,7 +153,7 @@ color: #92949F;
 position: relative;
 width: 18px;
 height: 18px;
-left: 48px;
+left: 621px;
 top: 26px;
 
 
@@ -236,6 +236,10 @@ border-radius: 8px;
 #following-people-post{
 
     margin: 70px;
+    text-align: center;
+    color: #72747cf6;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 70px;
 }
 
 #feed{
@@ -245,6 +249,28 @@ border-radius: 8px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 100px;
     color: #72747cf6;
+}
+
+.post-styling{
+    padding: 30px;
+    margin: 60px;
+    border: 15px solid #72747cf6;
+}
+
+.post-styling-following{
+
+    padding: 30px;
+    margin: 150px;
+    border: 15px solid #72747cf6;
+
+
+}
+
+.btn-primary{
+
+    color:#72747cf6;
+    background-color: #72747cf6;
+
 }
 
 

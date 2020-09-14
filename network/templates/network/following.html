@@ -18,10 +18,14 @@
 
   {% for post in posts %}
 
-   <p id="post-owner">{{post.post_owner|capfirst}}</p>
-   <img id="post-image-profile" src="{{post.imageURL}}" alt="">
-   <p id="post-content-profile">{{post.post_content}}</p>
-   <p id="post-time">{{post.timestamp}}<p>
+   <div class="post-styling-following">
+
+    <p id="post-owner">{{post.post_owner|capfirst}}</p>
+    <img id="post-image" src="{{post.imageURL}}" alt="">
+    <p id="post-content">{{post.post_content}}</p>
+    <p id="post-time">{{post.timestamp}}<p>
+
+   </div>
   
   
   
