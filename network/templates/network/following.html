@@ -1,0 +1,42 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+
+
+{% block body %}
+
+
+
+<h1 id="following-people-post">People's Post being followed by you</h1>
+
+
+
+
+
+
+
+
+  {% for post in posts %}
+
+   <p id="post-owner">{{post.post_owner|capfirst}}</p>
+   <img id="post-image-profile" src="{{post.imageURL}}" alt="">
+   <p id="post-content-profile">{{post.post_content}}</p>
+   <p id="post-time">{{post.timestamp}}<p>
+  
+  
+  
+  
+  {% endfor %}
+
+
+ 
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'network/twitter.js' %}"></script>
+{% endblock %}
+
+
+
+

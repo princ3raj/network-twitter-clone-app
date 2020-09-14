@@ -5,50 +5,60 @@
 
 
 
-<div class="container">
-</div>
+
+
+{% if user.is_authenticated %}
+
+
+<h1 id="feed">feed</h1>
 
 
 
 
+        <div class="container">
+        </div>
 
-<div class="main-container">
-
-
-        <img id="profile-image" src="{% static 'images/profile.png' %}" alt="">
-        <p id="username">princy</p>
-        <p id="posts">Posts</p>
-        <p id="followers">Followers</p>
-        <p id="following">Following</p>
-        <button id="follow-unfollow-button">follow</button>
-        <p id="followers-count">10</p>
-        <p id="following-count">5</p>
-        <p id="posts-count">20</p>
-        <br>
-        <br>
+        <div class="main-container">
 
 
-
-
-  
-</div>
+                <img id="profile-image" src="{% static 'images/profile.png' %}" alt="">
+                <p id="username">princy</p>
+                <p id="posts">Posts</p>
+                <p id="followers">Followers</p>
+                <p id="following">Following</p>
+                <button id="follow-unfollow-button">follow</button>
+                <p id="followers-count">10</p>
+                <p id="following-count">5</p>
+                <p id="posts-count">20</p>
+                <br>
+                <br>
 
 
 
 
+        
+        </div>
+        
+        
+        <div class="edit-post">
+
+            <form class="editedpostform">
+            <label for="editpost">Edit Post</label>
+            <input type="text" id="edit-post-content" name="post"><br><br>
+            <input id="submit" type="submit" value="Submit">
+            </form>
+
+        </div>
+        
 
 
+ {% else %}
 
-<div class="edit-post">
 
-    <form class="editedpostform">
-    <label for="editpost">Edit Post</label>
-    <input type="text" id="edit-post-content" name="post"><br><br>
-    
-    <input id="submit" type="submit" value="Submit">
-    </form>
+ <h1>Log in your self first</h1>
 
-</div>
+
+ {% endif %}
 
 
 

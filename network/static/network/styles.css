@@ -184,6 +184,7 @@ border-radius: 8px;
     position: relative;
     left: 80px;
     font-size: 40px;
+    color: #72747cf6;
    
 
 
@@ -230,6 +231,24 @@ border-radius: 8px;
 .edit-post{
     margin: 100px;
 }
+
+
+#following-people-post{
+
+    margin: 70px;
+}
+
+#feed{
+
+    text-align: center;
+    margin: 70px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 100px;
+    color: #72747cf6;
+}
+
+
+
 
 
 

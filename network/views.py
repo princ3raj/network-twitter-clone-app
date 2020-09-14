@@ -8,17 +8,14 @@ import json
 from django.http import JsonResponse
 from .forms import PostForm
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 
 def index(request):
-
-    
-
     posts=Post.objects.all()
     posts=posts.order_by("-timestamp").all()
     context={'posts':posts}
-    
     return render(request, "network/index.html",context)
 
 
@@ -75,13 +72,6 @@ def register(request):
 
 
 def profile(request,username):
-
-
-
-
-
-
-
     followers=UserProfile.objects.all()
     posts=Post.objects.all()
     posts=posts.order_by("-timestamp").all()
@@ -93,6 +83,7 @@ def profile(request,username):
 
     i=0
     j=0
+    
     print(type(username))
     for f in followers:
         if str(f.follower)==username:
@@ -195,6 +186,7 @@ def fetchFollowers(request):
     # Filter emails returned based on mailbox
  
     userprofile = UserProfile.objects.all()
+
        
 
     # Return emails in reverse chronologial order
@@ -202,7 +194,157 @@ def fetchFollowers(request):
     return JsonResponse([follower.serialize() for follower in userprofile], safe=False)
     
     
+@csrf_exempt
+def addUserProfiles(request):
+
+     # Query for requested email
+    try:
+        profile = UserProfile.objects.all()
+        
+    except UserProfile.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    # Composing a new email must be via POST
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
 
 
+    data = json.loads(request.body)
+   
+
+    following=data.get("following","")
+  
+    mainUser=[]
+
+    user=User.objects.all()
+    for f in user:
+        if str(f.username)==following:
+            mainUser.append(f)
+            following_id=f.id
+
+        if str(request.user)==str(f.username):
+            follower_id=f.id
+
+
+    
+
+
+    print(request.user)
+    print(mainUser[0])
+    print(follower_id)
+    print(following_id)
+   
+
+
+    profile=UserProfile(
+
+        follower=request.user,
+        follower_id=follower_id,
+        following=mainUser[0],
+        following_id=following_id
+    )
+
+    
+
+    
+
+
+    profile.save()
+       
+
+    return JsonResponse({"message": "Post Updated successfully."}, status=201)
+
+
+
+@csrf_exempt
+def delete(request):
+    # deleting a userprofile must be via POST
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    data = json.loads(request.body)
+    following=data.get("following","")
+    mainUser=[]
+    user=User.objects.all()
+    for f in user:
+        if str(f.username)==following:
+            mainUser.append(f)
+            following_id=f.id
+
+        if str(request.user)==str(f.username):
+            follower_id=f.id
+
+    try:
+        profile = UserProfile.objects.filter(
+        follower=request.user,
+        follower_id=follower_id,
+        following=mainUser[0],
+        following_id=following_id
+        )
+        
+    except UserProfile.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    profile.delete()
+       
+
+    return JsonResponse({"message": "Post Updated successfully."}, status=201)
+
+
+
+def mainprofile(request,username):
+    followers=UserProfile.objects.all()
+    posts=Post.objects.all()
+    posts=posts.order_by("-timestamp").all()
+    # loggedinuser=str(request.user)
+    PostBox=[]
+    for post in posts:
+        if str(post.post_owner)==username:
+            PostBox.append(post)
+
+    i=0
+    j=0
+    print(type(username))
+    for f in followers:
+        if str(f.follower)==username:
+            print(type(f.follower))
+            i+=1
+    for g in followers:
+        if str(g.following)==username:
+            j+=1
+
+    print(PostBox)
+    postcount=len(PostBox)
+    print(postcount)
+
+    context={'follower':followers,'i':i,'j':j,'username':username,'posts':PostBox,'loggedinuser':loggedinuser,'postcount':postcount}
+    return render(request,"network/profile.html",context)
+
+
+def following(request):
+
+    userprofile=UserProfile.objects.all()
+    totalFollowedUser=[]
+    for profile in userprofile:
+        if profile.follower == request.user:
+            totalFollowedUser.append(profile)
+    
+
+    print(totalFollowedUser)
+    print(totalFollowedUser[0].following)
+    
+
+    posts=Post.objects.all()
+    onlyPost=[]
+   
+    for followedUser in totalFollowedUser:
+        for post in posts:
+            if post.post_owner==followedUser.following:
+                onlyPost.append(post)
+
+    
+    print(onlyPost)
+    context={'posts':onlyPost}
+    return render(request,"network/following.html",context)
 
 

@@ -55,7 +55,8 @@ class UserProfile(models.Model):
 
     def serialize(self):
         return {
-            "id": self.id,
+            "follower_id": self.follower_id,
+            "following_id":self.following_id,
             "follower": self.follower.username,
             "following":self.following.username
            

@@ -4,7 +4,7 @@
 
 {% block body %}
 
-
+{% if user.is_authenticated %}
 
 <form action="" method="post" class="form" enctype="multipart/form-data">
     {% csrf_token %}
@@ -15,20 +15,13 @@
 </form>
 
 
+{% else %}
 
 
+<h1>Log in your self first</h1>
 
 
-
-
-
-
-
-
-
-
-
-
+{% endif %}
 
 {% endblock %}
 

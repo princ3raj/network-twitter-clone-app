@@ -9,6 +9,9 @@
 
 
 
+
+
+
 <img id="profile-image" src="{% static 'images/profile.png' %}" alt="">
 <p id="username">{{username}}</p>
 <p id="posts">Posts</p>
@@ -22,7 +25,7 @@
 {% else %}
 
 
-<button id="follow-unfollow-button">follow</button>
+
 
 
 
@@ -32,7 +35,7 @@
 
 <p id="followers-count">{{j}}</p>
 <p id="following-count">{{i}}</p>
-<p id="posts-count">20</p>
+<p id="posts-count">{{postcount}}</p>
 <br>
 <br>
 
@@ -42,6 +45,7 @@
 
    <img id="post-image-profile" src="{{post.imageURL}}" alt="">
    <p id="post-content-profile">{{post.post_content}}</p>
+   <p id="post-time">{{post.timestamp}}<p>
   
   
   
