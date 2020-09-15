@@ -127,13 +127,8 @@ def create(request):
     return render(request,"network/createpost.html",context)
 
 @csrf_exempt
-def editNewPost(request,post_id):
-
-
-
+def editPost(request,post_id):
     print(post_id)
-
-
      # Query for requested email
     try:
         post = Post.objects.get(post_owner=request.user, pk=post_id)
@@ -346,5 +341,66 @@ def following(request):
     print(onlyPost)
     context={'posts':onlyPost}
     return render(request,"network/following.html",context)
+
+
+
+
+
+@csrf_exempt
+def updatePostLikes(request,post_id):
+    print(post_id)
+     # Query for requested email
+    try:
+        post = Post.objects.get(pk=post_id)
+        print(post)
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    # Composing a new email must be via POST
+    if request.method != "PUT":
+        return JsonResponse({"error": "POST request required."}, status=400)
+
+    # Check recipient emails
+
+
+    if request.method == "PUT":
+        data = json.loads(request.body)
+        if data.get("liked") is not None:
+            post.liked = data["liked"]
+        
+        post.save()
+        return HttpResponse(status=204)
+
+    # print(data)
+
+
+     
+    # post_id=data.get("id","")
+    # # image=data.get("post_image","")
+    # # content = data.get("post_content", "")
+    # time=data.get("timestamp","")
+    # like=data.get("liked","")
+
+
+
+   
+
+
+    # post=Post(
+    #     id=post_id,
+    #     post_owner=request.user,
+    #     timestamp=time,
+    #     liked=like
+    # )
+
+   
+    # post.save()
+       
+
+    return JsonResponse({"message": "Post Updated successfully."}, status=201)
+
+
+
+
 
 

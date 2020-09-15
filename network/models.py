@@ -13,6 +13,7 @@ class Post(models.Model):
     post_image=models.ImageField(null=True,blank=True)
     post_content=models.CharField(max_length=200, blank=True, null=True)
     timestamp=models.DateTimeField(auto_now_add=True)
+    liked=models.BooleanField(default=False)
 
     @property
     def imageURL(self):
@@ -34,7 +35,8 @@ class Post(models.Model):
             "post_owner": self.post_owner.username,
             "post_image":self.post_image.url,
             "post_content": self.post_content,
-            "timestamp": self.timestamp
+            "timestamp": self.timestamp,
+            "liked":self.liked
         }
 
 
@@ -61,6 +63,9 @@ class UserProfile(models.Model):
             "following":self.following.username
            
         }
+
+class Like(models.Model):
+    like=models.ForeignKey("Post", related_name="like_count", on_delete=models.CASCADE)
 
   
 
