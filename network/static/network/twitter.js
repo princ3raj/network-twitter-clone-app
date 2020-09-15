@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelector(".main-container").style.display='none';
     load_posts() 
+   
 
 
 
@@ -24,8 +25,67 @@ function load_posts(){
 
 
 function appendPosts(posts){
-  
+
+
+
+
+
+  ///////////////////////////////////////////////////////////////////////
+
+  //let's define//////////////////
+
+
+
+          var post_array=[];
+          //fetching logged in user here
+            fetch('/user')
+            .then(response => response.json())
+            .then(username=> {
+              var loggedinuserforlikes=username.user
+                //fetching all posts
+                fetch("/posts")
+                .then(response => response.json())
+                .then(posts_for_likes=>{
+          
+                  //fetching all  post-likes
+                  fetch("/likes")
+                  .then(response => response.json())
+                  .then(likes=>{
+          
+          
+                    // console.log(loggedinuser)
+                    // console.log(posts)
+                    // console.log(likes)
+                    console.log(likes[0].like_id)
+                    console.log(likes[0].likeowner)
+          
+                    for (var i=0;i<posts_for_likes.length;i++)
+                    {
+                      for (var j=0;j<likes.length;j++)
+                      {
+                        if(posts_for_likes[i].id==likes[j].like_id && likes[j].likeowner==loggedinuserforlikes)
+                        {
+                          post_array.push(posts_for_likes[i])
+                        }
+                      }
+                    }
+
+
+
+
+
+                    //apppendpostfunction body/////////////
+
+
+
+
+                        ///////////////////////////////
+
+
+  ///////////////////////////////////////////////////////////////////////
+
     var mainContainer = document.querySelector(".container");
+    var r=1;
     for(var i=0;i<posts.length;i++)
     {
         var div = document.createElement("div");
@@ -63,22 +123,65 @@ function appendPosts(posts){
         post_image.src=posts[i].post_image
         post_content.innerHTML=posts[i].post_content
         post_time.innerHTML=posts[i].timestamp
-        var likedOrNot=posts[i].liked
-        if(likedOrNot)
-        {
-          post_like.innerHTML=1
-          like_button.src="/images/liked.png"
-        }
-        else{
-          post_like.innerHTML=0
-          like_button.src="/images/unliked.png"
 
-        }
+
+        
+
+
+       
+
+       
+        
+
+      
+
+
+
+
+      
+     
      
         mainContainer.appendChild(div);
        
     
     }
+
+
+    
+
+    for(var x=0; x<posts.length ;x++)
+    {
+
+
+      var unlikedpost=posts[x].id;
+      unlikedpost="ab"+unlikedpost;
+      console.log(unlikedpost)
+      document.querySelector(`#${unlikedpost}`).src="/images/unliked.png"
+
+    
+
+
+
+
+    }
+
+
+    for (var t=0; t<post_array.length;t++)
+    {
+
+      var likedOrNot=post_array[t]["liked"]
+     
+  
+        var idofindividualpost=post_array[t].id
+        idofindividualpost="ab"+idofindividualpost
+        // console.log(idofindividualpost)
+        document.querySelector(`#${idofindividualpost}`).src="/images/liked.png"
+       
+    
+      
+    }
+
+
     document.addEventListener('click',event=>{
       const post_id=event.target.id;
       const img_class_no=event.target.className;
@@ -270,6 +373,31 @@ function appendPosts(posts){
         
       });//for each loop end
     });// add event listener end
+
+
+
+
+
+
+
+
+                    /////////////////////////////////////////
+
+                 
+
+
+          
+                  
+                  });
+                  //likes fetch end here
+          
+                });
+                //post fetch end here
+          
+            });
+
+
+  
 }//this is the end of append post function
 
 
@@ -476,6 +604,57 @@ function followUnfollow(loggedinuser,followers,post_owner_name)
 
 
 }
+
+
+function likecounter(){
+
+  var post_array=[];
+//fetching logged in user here
+  fetch('/user')
+  .then(response => response.json())
+  .then(username=> {
+    var loggedinuser=username.user
+      //fetching all posts
+      fetch("/posts")
+      .then(response => response.json())
+      .then(posts=>{
+
+        //fetching all  post-likes
+        fetch("/likes")
+        .then(response => response.json())
+        .then(likes=>{
+
+
+          // console.log(loggedinuser)
+          // console.log(posts)
+          // console.log(likes)
+          console.log(likes[0].like_id)
+          console.log(likes[0].likeowner)
+
+          for (var i=0;i<posts.length;i++)
+          {
+            for (var j=0;j<likes.length;j++)
+            {
+              if(posts[i].id==likes[j].like_id && likes[j].likeowner==loggedinuser)
+              {
+                post_array.push(posts[i])
+              }
+            }
+          }
+
+        
+        });
+        //likes fetch end here
+
+      });
+      //post fetch end here
+
+  });
+//ending here///
+
+
+
+}//function end here
 
 
 

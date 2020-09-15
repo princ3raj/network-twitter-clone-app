@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from .models import User, UserProfile,Post
+from .models import User, UserProfile,Post,Like
 import json
 from django.http import JsonResponse
 from .forms import PostForm
@@ -348,11 +348,9 @@ def following(request):
 
 @csrf_exempt
 def updatePostLikes(request,post_id):
-    print(post_id)
      # Query for requested email
     try:
         post = Post.objects.get(pk=post_id)
-        print(post)
     except Post.DoesNotExist:
         return JsonResponse({"error": "Post not found."}, status=404)
 
@@ -369,35 +367,47 @@ def updatePostLikes(request,post_id):
             post.liked = data["liked"]
         
         post.save()
-        return HttpResponse(status=204)
+        
 
     # print(data)
 
+    if request.method =="PUT":
+        data=json.loads(request.body)
+        if data.get("liked") is not None:
+            deleteOrNot=data.get("liked")
+            if  deleteOrNot:  
+                posty=Post(pk=post_id)
+                like=Like(like=posty.post_content,like_id=posty.id,likeowner=request.user,likeowner_id=request.user.id)
+                like.save()
+                print(post_id)
+                print("saved call")
+            else:
+                posty=Post.objects.get(pk=post_id)
+                LikedPost=Like.objects.all()
+                print(posty.post_content)
+                for likedPost in LikedPost:
+                    if str(likedPost.like)==str(posty.post_content) and str(likedPost.likeowner)==str(request.user):
+                        print("finall")
+                        likedPost.delete()
 
-     
-    # post_id=data.get("id","")
-    # # image=data.get("post_image","")
-    # # content = data.get("post_content", "")
-    # time=data.get("timestamp","")
-    # like=data.get("liked","")
-
-
-
-   
-
-
-    # post=Post(
-    #     id=post_id,
-    #     post_owner=request.user,
-    #     timestamp=time,
-    #     liked=like
-    # )
-
-   
-    # post.save()
+                
+                print("delete call")
+            return HttpResponse(status=204)
        
 
     return JsonResponse({"message": "Post Updated successfully."}, status=201)
+
+
+def fetchLikedPost(request):
+    # Filter emails returned based on mailbox
+ 
+    likedPost = Like.objects.all()
+    print(likedPost)
+
+    
+    # Return emails in reverse chronologial order
+    likedPost =likedPost.order_by("-id").all()
+    return JsonResponse([like.serialize() for like in likedPost], safe=False)
 
 
 

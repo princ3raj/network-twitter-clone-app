@@ -19,6 +19,7 @@ urlpatterns = [
     path("main/<str:username>/",views.mainprofile,name="profileFromNavigation"),
     path("following",views.following,name="followingPeoplePost"),
     path("like/<int:post_id>/",views.updatePostLikes,name="like"),
+    path("likes",views.fetchLikedPost,name="allLikedPost"),
    
 
 ]

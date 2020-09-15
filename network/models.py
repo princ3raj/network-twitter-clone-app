@@ -66,6 +66,18 @@ class UserProfile(models.Model):
 
 class Like(models.Model):
     like=models.ForeignKey("Post", related_name="like_count", on_delete=models.CASCADE)
+    likeowner=models.ForeignKey("User", related_name="like_by_whom", on_delete=models.CASCADE,null=True)
+
+
+
+    def serialize(self):
+        return {
+            "like_id": self.like_id,
+            "likeowner_id":self.likeowner_id,
+            "like": self.like.post_content,
+            "likeowner":self.likeowner.username
+           
+        }
 
   
 
