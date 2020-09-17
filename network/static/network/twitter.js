@@ -37,6 +37,7 @@ function appendPosts(posts){
 
 
           var post_array=[];
+          var post_like_count_array=[];
           //fetching logged in user here
             fetch('/user')
             .then(response => response.json())
@@ -70,16 +71,20 @@ function appendPosts(posts){
                       }
                     }
 
+                    for(var q=0;q<posts_for_likes.length;q++)
+                    {
+                      for(var h=0;h<likes.length;h++)
+                      {
+                        if(posts_for_likes[q].id==likes[h].like_id)
+                        {
 
+                          post_like_count_array.push(likes[h])
 
+                        }
+                      }
+                    }
 
-
-                    //apppendpostfunction body/////////////
-
-
-
-
-                        ///////////////////////////////
+                    
 
 
   ///////////////////////////////////////////////////////////////////////
@@ -105,7 +110,7 @@ function appendPosts(posts){
         like_button.className="btn-danger"
         post_content.id="post-content"
         post_time.id="post-time"
-        post_like.id="post-like"
+        post_like.id="abc"+posts[i].id
         like_button.id="ab"+posts[i].id
         
       
@@ -125,60 +130,103 @@ function appendPosts(posts){
         post_time.innerHTML=posts[i].timestamp
 
 
-        
-
-
-       
-
-       
-        
-
       
-
-
-
-
-      
-     
-     
         mainContainer.appendChild(div);
        
     
     }
 
 
-    
+
+
+
+
+     console.log(posts)
+     console.log(post_like_count_array)
+    var likedpostcount
+    var counter=0;
+    var flag=1;
+    var objectcount=[];
+    var justforid=""
+  
+    for(var vvv=0;vvv<posts.length;vvv++)
+    { 
+      justforid=""
+      counter=0
+      for (var tt=0;tt<post_like_count_array.length;tt++)
+      {
+        if(posts[vvv].id==post_like_count_array[tt].like_id)
+        {
+          if(flag==1)
+          {
+            likedpostcount=posts[vvv].id;
+            likedpostcount="abc"+likedpostcount;
+            flag++
+            console.log(likedpostcount)
+            
+          }
+          justforid=post_like_count_array[tt].like_id
+          counter++;
+        }
+
+      }
+      if(counter)
+      {
+
+        objectcount.push({["id"]:justforid,["repeat"]:counter})
+
+      }
+      
+      
+      
+      
+    }
+
+    console.log(objectcount)
+
+
+
+
 
     for(var x=0; x<posts.length ;x++)
     {
 
-
       var unlikedpost=posts[x].id;
+      var unlikedcountpost=posts[x].id
       unlikedpost="ab"+unlikedpost;
-      console.log(unlikedpost)
+      unlikedcountpost="abc"+unlikedcountpost;
       document.querySelector(`#${unlikedpost}`).src="/images/unliked.png"
+      document.querySelector(`#${unlikedcountpost}`).innerHTML=0
 
-    
+  
+    }
 
 
 
+
+    for(var likecounter=0;likecounter<objectcount.length;likecounter++)
+    {
+      var idOfIndiVidualPost=objectcount[likecounter].id
+      idOfIndiVidualPost="abc"+idOfIndiVidualPost
+      document.querySelector(`#${idOfIndiVidualPost}`).innerHTML=objectcount[likecounter].repeat
 
     }
+   
+
+
+  
+   
 
 
     for (var t=0; t<post_array.length;t++)
     {
 
-      var likedOrNot=post_array[t]["liked"]
-     
-  
         var idofindividualpost=post_array[t].id
         idofindividualpost="ab"+idofindividualpost
-        // console.log(idofindividualpost)
         document.querySelector(`#${idofindividualpost}`).src="/images/liked.png"
-       
-    
       
+       
+   
     }
 
 
@@ -418,6 +466,7 @@ function newLikeFunction(like_button_id, post_id, s, post) {
         });
 
         document.querySelector(`#${like_button_id}`).src = "/images/unliked.png";
+        location.reload()
 
       }
       else {
@@ -428,6 +477,7 @@ function newLikeFunction(like_button_id, post_id, s, post) {
           })
         });
         document.querySelector(`#${like_button_id}`).src = "/images/liked.png";
+        location.reload()
 
       }
     });
