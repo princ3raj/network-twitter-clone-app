@@ -1,6 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
   document.querySelector(".main-container").style.display='none';
-    load_posts() 
+
+
+  var even=2
+
+
+  document.addEventListener('click',event=>{
+    console.log("page fun run")
+    const pagenumberid=event.target.id
+    var pageNumber=pagenumberid
+    pageNumber=pagenumberid.slice(8)
+    if(pageNumber){
+        $(".container").empty()
+        $(".nav-bar-pagination").empty()
+        load_posts(pageNumber)
+        even++
+      
+    }
+
+
+
+
+
+
+  })
+
+  if(even%2==0)
+  {
+    console.log("default function run")
+    load_posts(1) 
+    even=even*2
+
+  }
+  
    
 
 
@@ -9,9 +41,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function load_posts(){
+function load_posts(pagenumberdefault){
+  
   document.querySelector(".edit-post").style.display='none';
-    fetch('/posts')
+    fetch(`page/${pagenumberdefault}`)
     .then(response => response.json())
     .then(function(posts){
       document.querySelector(".main-container").style.display='none';
@@ -25,6 +58,57 @@ function load_posts(){
 
 
 function appendPosts(posts){
+
+
+
+
+
+  var navContainer = document.querySelector(".pagination-nav");
+  var nav = document.createElement("nav");
+  nav.className="nav-bar-pagination";
+  var ul=document.createElement("ul");
+  ul.className="pagination";
+
+  fetch('/range')
+  .then(response => response.json())
+  .then(pages=> {
+
+    var pagecountno=pages[0].page
+    console.log("run")
+    console.log(pagecountno)
+    for (var pagenav=1;pagenav<=pagecountno;pagenav++)
+    {
+        var li=document.createElement("li")
+        li.className="page-item"
+        li.id="page"+pagenav
+        var a=document.createElement("a")
+        a.className="page-link"
+        a.id="pagelink"+pagenav
+        a.href="#"
+        a.onclick="return false;"
+        li.appendChild(a)
+        a.innerHTML=pagenav
+        ul.appendChild(li);
+        
+
+
+       
+
+    }
+
+    nav.appendChild(ul);
+    navContainer.appendChild(nav)
+    
+
+  })
+
+
+
+
+
+  
+
+  
 
 
 
@@ -44,9 +128,7 @@ function appendPosts(posts){
             .then(username=> {
               var loggedinuserforlikes=username.user
                 //fetching all posts
-                fetch("/posts")
-                .then(response => response.json())
-                .then(posts_for_likes=>{
+               
           
                   //fetching all  post-likes
                   fetch("/likes")
@@ -60,22 +142,22 @@ function appendPosts(posts){
                     console.log(likes[0].like_id)
                     console.log(likes[0].likeowner)
           
-                    for (var i=0;i<posts_for_likes.length;i++)
+                    for (var i=0;i<posts.length;i++)
                     {
                       for (var j=0;j<likes.length;j++)
                       {
-                        if(posts_for_likes[i].id==likes[j].like_id && likes[j].likeowner==loggedinuserforlikes)
+                        if(posts[i].id==likes[j].like_id && likes[j].likeowner==loggedinuserforlikes)
                         {
-                          post_array.push(posts_for_likes[i])
+                          post_array.push(posts[i])
                         }
                       }
                     }
 
-                    for(var q=0;q<posts_for_likes.length;q++)
+                    for(var q=0;q<posts.length;q++)
                     {
                       for(var h=0;h<likes.length;h++)
                       {
-                        if(posts_for_likes[q].id==likes[h].like_id)
+                        if(posts[q].id==likes[h].like_id)
                         {
 
                           post_like_count_array.push(likes[h])
@@ -135,6 +217,16 @@ function appendPosts(posts){
        
     
     }
+
+
+
+
+
+
+
+    
+
+
 
 
 
@@ -216,7 +308,7 @@ function appendPosts(posts){
 
   
    
-
+   console.log(post_array.length)
 
     for (var t=0; t<post_array.length;t++)
     {
@@ -231,6 +323,7 @@ function appendPosts(posts){
 
 
     document.addEventListener('click',event=>{
+     
       const post_id=event.target.id;
       const img_class_no=event.target.className;
       const like_button_id=event.target.id;
@@ -439,8 +532,7 @@ function appendPosts(posts){
                   });
                   //likes fetch end here
           
-                });
-                //post fetch end here
+               
           
             });
 

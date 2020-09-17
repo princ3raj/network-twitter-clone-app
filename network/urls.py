@@ -20,6 +20,8 @@ urlpatterns = [
     path("following",views.following,name="followingPeoplePost"),
     path("like/<int:post_id>/",views.updatePostLikes,name="like"),
     path("likes",views.fetchLikedPost,name="allLikedPost"),
+    path("page/<int:page_number>/",views.paginationPost,name="pagination"),
+    path("range",views.range,name="range"),
    
 
 ]

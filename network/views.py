@@ -9,14 +9,12 @@ from django.http import JsonResponse
 from .forms import PostForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 
 def index(request):
-    posts=Post.objects.all()
-    posts=posts.order_by("-timestamp").all()
-    context={'posts':posts}
-    return render(request, "network/index.html",context)
+    return render(request, "network/index.html")
 
 
 def login_view(request):
@@ -103,11 +101,26 @@ def fetchPost(request):
     # Filter emails returned based on mailbox
  
     posts = Post.objects.all()
+
+
+    # if request.method=='GET'  and '1' in request.POST:
+    #     posts = posts.order_by("-timestamp").all()
+    #     p = Paginator(posts, 10)
+    #     p=p.page(3)
+    #     limit=p.object_list
+    #     return JsonResponse([post.serialize() for post in limit], safe=False)
+
+   
+
        
 
     # Return emails in reverse chronologial order
     posts = posts.order_by("-timestamp").all()
-    return JsonResponse([post.serialize() for post in posts], safe=False)
+
+    list=[]
+    for post in posts:
+        list.append(post.serialize())
+    return JsonResponse(list, safe=False)
 
 
 
@@ -408,6 +421,31 @@ def fetchLikedPost(request):
     # Return emails in reverse chronologial order
     likedPost =likedPost.order_by("-id").all()
     return JsonResponse([like.serialize() for like in likedPost], safe=False)
+
+
+def paginationPost(request,page_number):
+        posts=Post.objects.all()
+        posts = posts.order_by("-timestamp").all()
+        p = Paginator(posts, 10)
+        p=p.page(page_number)
+        limit=p.object_list
+        return JsonResponse([post.serialize() for post in limit], safe=False)
+
+def range(request):
+    posts = Post.objects.all()
+    posts = posts.order_by("-timestamp").all()
+    p = Paginator(posts, 10)
+    noOfPages=p.num_pages
+    list=[]
+    list.append({"page":noOfPages})
+    return JsonResponse(list, safe=False)
+    
+
+ 
+
+
+
+
 
 
 
